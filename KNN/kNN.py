@@ -2,6 +2,7 @@
 #导入两个模块，第一个是科学计算包NumPy,第二个是运算符模块。
 from numpy import *
 import operator
+from os import listdir
 #创建数据集和标签
 def createDataSet():
     #group矩阵每行包含一个不同的数据。
@@ -30,7 +31,7 @@ def classify0(inX,dataSet,labels,k):
         voteIlabel = labels[sortedDistIndicies[i]]
         #在字典中将该类型加一
         classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-     #排序并返回出现最多的那个类型
+    #排序并返回出现最多的那个类型
     #第一个参数：字典的iteritimes()方法，遍历返回字典的迭代器
     #第二个参数：这个参数的意思是先比较第几个元素，
     #reverse：代表是否倒序。
@@ -113,3 +114,41 @@ def classifyPerson():
     inArr = array([ffMiles,percentTats,iceCream])
     classifierResult = classify0((inArr-minVals)/ranges,normMat,datingLabels,3)
     print("You will probably like this person:",resultList[classifierResult - 1])
+   
+ #示例：手写识别系统
+    
+#准备数据：将图像转换为测试向量
+def img2vector(filename):
+    returnVector = zeros((1,1024))
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        for j in range(32):
+            returnVector[0,32*i+j] = int(lineStr[j])
+    return returnVector
+#测试算法：使用k-近邻算法识别手写数字
+def handwritingClassTest():
+    hwLabels = [] 
+    trainingFileList = listdir('trainingDigits')
+    m = len(trainingFileList)
+    trainingMat = zeros((m,1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+        fileStr = fileNameStr.split('.')[0]
+        classNumStr = int(fileStr.split('_')[0])
+        hwLabels.append(classNumStr)
+        trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
+    testFileList = listdir('testDigits')
+    errorCount = 0.0
+    mTest = len(testFileList)
+    for i in range(mTest):
+        fileNameStr = testFileList[i]
+        fileStr = fileNameStr.split('.')[0]
+        classNumStr = int(fileStr.split('_')[0])
+        vectorUnderTest = img2vector('testDigits/%s' % fileNameStr)
+        classifierResult = classify0(vectorUnderTest,trainingMat,hwLabels,3)
+        print("the classifier came back with: %d,the real answer is : %d" % (classifierResult,classNumStr))
+        if (classifierResult != classNumStr):
+            errorCount += 1.0
+        print("\nthe total number of errors is : %d" % errorCount)
+        print("\nthe total error rate is : %f" % (errorCount/float(mTest)))
