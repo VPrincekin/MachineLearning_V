@@ -128,24 +128,39 @@ def img2vector(filename):
     return returnVector
 #测试算法：使用k-近邻算法识别手写数字
 def handwritingClassTest():
+    #定义一个列表
     hwLabels = [] 
+    #获取训练数据集的文件名
     trainingFileList = listdir('trainingDigits')
+    #计算训练数据集的样本个数
     m = len(trainingFileList)
+    #准备把每个训练样本转换为一个（1，1024）的向量
     trainingMat = zeros((m,1024))
+    #开始遍历训练样本
     for i in range(m):
+        #得到每个图像对应的数字
         fileNameStr = trainingFileList[i]
         fileStr = fileNameStr.split('.')[0]
         classNumStr = int(fileStr.split('_')[0])
+        #依次添加到列表中
         hwLabels.append(classNumStr)
+        #得到每个图像对应的向量
         trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
+
+    #准备遍历测试数据
     testFileList = listdir('testDigits')
     errorCount = 0.0
+    #获得测试数据个数
     mTest = len(testFileList)
+    #开始遍历测试数据
     for i in range(mTest):
+        #得到每个图像对应的数字
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]
         classNumStr = int(fileStr.split('_')[0])
+        #得到每个图像对应的向量
         vectorUnderTest = img2vector('testDigits/%s' % fileNameStr)
+        #开始测试算法
         classifierResult = classify0(vectorUnderTest,trainingMat,hwLabels,3)
         print("the classifier came back with: %d,the real answer is : %d" % (classifierResult,classNumStr))
         if (classifierResult != classNumStr):
