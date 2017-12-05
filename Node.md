@@ -28,4 +28,4 @@
 4. shape    查看矩阵的大小，返回（m,n）。   
 5. zeros((m,n))     生成一个m x n 都值为0的矩阵。  
 6. multiply(A,B)    A,B两个矩阵对应元素相乘。
-
+7. svInd = nonzero(alphas.A > 0)[0]  

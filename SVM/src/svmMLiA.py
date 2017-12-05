@@ -177,7 +177,7 @@ def calcEk(oS, k):
     :param k:   具体的某一行
     :return:    预测结果与真实结果的误差Ek
     """
-    fXk = float(multiply(oS.alphas, oS.labelMat).T * (oS.X * oS.X[k,:].T))+ oS.b
+    fXk = float(multiply(oS.alphas, oS.labelMat).T * oS.K[:,k]+ oS.b)
     Ek = fXk - float(oS.labelMat[k])
     return Ek
 
@@ -224,7 +224,7 @@ def updateEk(oS,k):
     :return:
     """
     Ek = calcEk(oS,k)
-    oS.eCache[k] = Ek
+    oS.eCache[k] = [1,Ek]
 
 def innerL(i, oS):
     """
@@ -252,7 +252,7 @@ def innerL(i, oS):
         if L == H:
             print("L==H")
             return 0
-        eta = 2.0 * oS.X[i,:]*oS.X[j,:].T - oS.X[i,:]*oS.X[i,:].T - oS.X[j,:]*oS.X[j,:].T  # changed for kernel
+        eta = 2.0 * oS.K[i,j] - oS.K[i,i] - oS.K[j,j]  # changed for kernel
         if eta >= 0:
             print("eta>=0")
             return 0
@@ -264,13 +264,14 @@ def innerL(i, oS):
         updateEk(oS, j)
         # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
         if (abs(oS.alphas[j] - alphaJold) < 0.00001):
+            print("j not moving enough")
             return 0
         # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
         oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])
         # 更新误差缓存
         updateEk(oS, i)
-        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i,:]*oS.X[i,:].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[i,:]*oS.X[j,:].T
-        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i,:]*oS.X[j,:].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[i,:]*oS.X[j,:].T
+        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) *oS.K[i,i] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) *oS.K[i,j]
+        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) *oS.K[i,j] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) *oS.K[j,j]
         if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
             oS.b = b1
         elif (0 < oS.alphas[j]) and (oS.C > oS.alphas[j]):
@@ -363,3 +364,4 @@ def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher di
     else:
         raise NameError('Houston We Have a Problem -- That Kernel is not recognized')
     return K
+
