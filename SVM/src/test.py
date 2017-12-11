@@ -17,5 +17,5 @@ import svm
 
 #ws = svmMLiA.calcws(alphas,dataArr,labelArr)
 
-# svmDemo.testDigits(('rbf',10))
-svm.testDigits(('rbf',10))
+svmDemo.testDigits(('rbf',10))
+# svm.testDigits(('rbf',10))？
