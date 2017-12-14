@@ -232,7 +232,8 @@ def loadImages(dirName):
 def testDigits(kTup=('rbf', 10)):
     dataArr,labelArr = loadImages('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/SVM/digits/trainingDigits')
     b,alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
-    datMat=mat(dataArr); labelMat = mat(labelArr).transpose()
+    datMat=mat(dataArr)
+    labelMat = mat(labelArr).transpose()
     svInd=nonzero(alphas.A>0)[0]
     sVs=datMat[svInd] 
     labelSV = labelMat[svInd];
