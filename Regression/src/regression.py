@@ -35,7 +35,7 @@ def standRegres(xArr,yArr):
         return
     #有两种计算方式
     ws = xTx.I * (xMat.T*yMat)
-    #ws = linalog.solve(xTx,xMat.T*yMat)
+    # ws = linalg.solve(xTx,xMat.T*yMat)
     return ws
 
 def lwlr(testPoint,xArr,yArr,k=1.0):
@@ -79,9 +79,17 @@ def lwlrTest(testArr,xArr,yArr,k=1.0):
         yHat[i] = lwlr(testArr[i],xArr,yArr,k)
     return yHat
 
-
+def rssError(yArr,yHatArr):
+    """
+    计算误差
+    :param yArr: 类别实际值
+    :param yHatArr: 预测值
+    :return: 总误差
+    """
+    return ((yArr-yHatArr)**2).sum()
 
 if __name__ == '__main__':
+    """"################################################################################################"""
     #加载数据，利用standRegres()计算w
     xArr,yArr = loadDataSet(r"C:\Users\v_wangdehong\PycharmProjects\MachineLearning_V\Regression\data\ex0.txt")
     ws = standRegres(xArr,yArr)
@@ -105,18 +113,18 @@ if __name__ == '__main__':
     yHat = xCopy * ws
     ax.plot(xCopy[:, 1], yHat)
     plt.show()
-
+    """"################################################################################################"""
     #我们可以通关计算预测值yHat序列和真实值y序列的匹配程度，那就是计算这两个序列的相关系数。
     #在numpy库中提供了相关系数的计算方法：可以通过corrcoef(yEstimate,yActual)来计算。
     corrArr = corrcoef(yHat.T,yMat)
     print(corrArr)
-
+    """"################################################################################################"""
     #利用局部加权回归对单点进行估计
     yHat0 = lwlr(xArr[0],xArr,yArr,1.0)
     print(yArr[0],yHat0)
     yHat0 = lwlr(xArr[0], xArr, yArr, 0.1)
     print(yArr[0], yHat0)
-
+    """"################################################################################################"""
     #为了得到数据集里所有点的估计，可以调用lwlrTest()函数
     yHat = lwlrTest(xArr,xArr,yArr,0.003)
     #下面绘出这些估计值和原始值，看看yHat的拟合效果。
@@ -130,3 +138,4 @@ if __name__ == '__main__':
     ax.plot(xSort[:,1],yHat[srtInd])
     ax.scatter(xMat[:,1].flatten().A[0],mat(yArr).T.flatten().A[0],s=2,c='red')
     plt.show()
+    """"################################################################################################"""
