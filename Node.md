@@ -39,3 +39,20 @@
     b'\xe4\xb8\xad\xff'.decode('utf-8', errors='ignore')
     
 2. input()返回的数据类型是str.
+
+==========================================================================================================
+### 数据特标准化：所有的特征都减去各自的均值并除以方差
+    ```
+    xMat = mat(xArr)
+    yMat=mat(yArr).T
+    计算Y的均值
+    yMean = mean(yMat,0)
+    #Y的所有特征减去均值
+    yMat = yMat - yMean
+    #计算X的均值
+    xMeans = mean(xMat,0)
+    #计算X的方差
+    xVar = var(xMat,0)
+    #所有特征都减去各自的均值并除以方差
+    xMat = (xMat - xMeans)/xVar
+    ```
