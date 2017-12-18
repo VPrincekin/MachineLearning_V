@@ -30,6 +30,8 @@
 5. zeros((m,n))     生成一个m x n 都值为0的矩阵。  
 6. multiply(A,B)    A,B两个矩阵对应元素相乘。
 7. svInd = nonzero(alphas.A > 0)[0]  得到alphas矩阵中所有大于0元素的位置
+8. arange(m)    可以生成一个从0到m-1的数组。
+9. random.shuffle(indexList)  numpy提供的shuffle函数可以对indexList中的元素进行混洗。
 
 =========================================================================================================
 #### IO
@@ -40,6 +42,10 @@
     
 2. input()返回的数据类型是str.
 
+3.  **UnicodeEncodeError: 'gbk' codec can't encode character u'\u3232' in position 0: illegal multibyte sequence**
+    解决方法：指定解码格式，忽略非法字符。  
+    fr = open(inFile,encoding='utf-8',errors='ignore')
+
 ==========================================================================================================
 ### 数据特标准化：所有的特征都减去各自的均值并除以方差
     ```
@@ -49,10 +55,11 @@
     yMean = mean(yMat,0)
     #Y的所有特征减去均值
     yMat = yMat - yMean
-    #计算X的均值
+    #计算X的均值(按照列计算)
     xMeans = mean(xMat,0)
     #计算X的方差
     xVar = var(xMat,0)
     #所有特征都减去各自的均值并除以方差
     xMat = (xMat - xMeans)/xVar
     ```
+=======================================================================================================================
