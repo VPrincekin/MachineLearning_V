@@ -12,6 +12,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Kaggle" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/AdaBoost" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/AdaBoost/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Regression" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Regression/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
