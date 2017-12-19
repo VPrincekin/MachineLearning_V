@@ -14,6 +14,8 @@
       <sourceFolder url="file://$MODULE_DIR$/AdaBoost/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Regression" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Regression/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/RegTrees/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/RegTrees" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
