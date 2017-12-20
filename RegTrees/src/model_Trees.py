@@ -13,7 +13,7 @@ import regTrees
 
 def linearSolve(dataSet):
     """
-    该函数主要是将数据集格式化成目标变量Y和自变量X。
+    该函数主要是将数据集格式化成目标变量Y和自变量X。进行标准线性回归计算，可以得到回归系数ws.
     :param dataSet: 数据集
     :return:
             ws: 回归系数
@@ -57,6 +57,7 @@ def modelErr(dataSet):
 
 
 if __name__ == '__main__':
+    #测试模型树实际效果
     myDat = regTrees.loadDataSet(r'C:\Users\v_wangdehong\PycharmProjects\MachineLearning_V\RegTrees\data\exp2.txt')
     myMat = mat(myDat)
     myTree = regTrees.createTree(myMat,modelLeaf,modelErr,(1,10))
