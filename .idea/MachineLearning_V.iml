@@ -2,20 +2,20 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/SVM/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/SVM" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/5.SVM/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/5.SVM" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Kaggle/Titanic/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Bayes" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Decisiontree" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/KNN" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LogRegres" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/3.Bayes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/2.Decisiontree" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/1.KNN" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/4.LogRegres" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Kaggle" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/AdaBoost" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/AdaBoost/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Regression" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Regression/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RegTrees/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RegTrees" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/6.AdaBoost" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/6.AdaBoost/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/7.Regression" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/7.Regression/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/8.RegTrees/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/8.RegTrees" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
