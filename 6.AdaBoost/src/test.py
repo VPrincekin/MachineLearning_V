@@ -35,7 +35,7 @@ def loadDataSet2(fileName):
     return dataArr, labelArr
 
 if __name__ == '__main__':
-    dataMat,lableMat = loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/AdaBoost/input_data/horseColicTraining2.txt')
+    dataMat,lableMat = loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/6.AdaBoost/input_data/horseColicTraining2.txt')
     print(shape(dataMat),shape(lableMat))
-    dataArr,labelArr = loadDataSet2('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/AdaBoost/input_data/horseColicTraining2.txt')
+    dataArr,labelArr = loadDataSet2('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/6.AdaBoost/input_data/horseColicTraining2.txt')
     print(shape(dataArr),shape(labelArr))

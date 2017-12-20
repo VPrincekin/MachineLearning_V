@@ -26,9 +26,9 @@ def loadDataSet(fileName):
 if __name__ == '__main__':
     import adaboost
     import adaboostDemo
-    datMat, labelMat = adaboostDemo.loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/AdaBoost/input_data/horseColicTraining2.txt')
+    datMat, labelMat = adaboostDemo.loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/6.AdaBoost/input_data/horseColicTraining2.txt')
     classifierArray = adaboost.adaBoostTrainDS(datMat, labelMat, 10)
-    testArr, testLabelArr = adaboostDemo.loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/AdaBoost/input_data/horseColicTest2.txt')
+    testArr, testLabelArr = adaboostDemo.loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/6.AdaBoost/input_data/horseColicTest2.txt')
     prediction10 = adaboost.adaClassify(testArr, classifierArray)
     errArr = mat(ones((67, 1)))
     print(errArr[prediction10 != mat(testLabelArr).T].sum())
