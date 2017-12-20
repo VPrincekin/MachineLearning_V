@@ -135,7 +135,7 @@ def crossValidation(xArr, yArr, numVal=10):
     meanX = mean(xMat, 0)
     varX = var(xMat, 0)
     unReg = bestWeights / varX
-    print("the best model from Ridge Regression is:\n", unReg)
+    print("the best model from Ridge 7.Regression is:\n", unReg)
     print("with constant term: ", -1 * sum(multiply(meanX, unReg)) + mean(yMat))
 
 
