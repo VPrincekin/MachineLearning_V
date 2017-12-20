@@ -86,10 +86,9 @@ if __name__ == '__main__':
     myDat = regTrees.loadDataSet(r'C:\Users\v_wangdehong\PycharmProjects\MachineLearning_V\RegTrees\data\ex2.txt')
     myMat = mat(myDat)
     myTree = regTrees.createTree(myMat,ops=(0,1))
+    print(myTree)
     myDatTest = regTrees.loadDataSet(r'C:\Users\v_wangdehong\PycharmProjects\MachineLearning_V\RegTrees\data\ex2test.txt')
     myMatTest = mat(myDatTest)
-    pruningTree = prune(myTree,myMatTest)
-    print(pruningTree)
     """
     可以看到，大量的节点已经被剪掉了，但没有预期的那样剪枝成两部分，这说明后剪枝可能不如预剪枝有效。
     一般地，为了寻求最佳模型可以同时使用两种剪枝技术。
