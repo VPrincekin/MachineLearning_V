@@ -16,6 +16,10 @@
       <sourceFolder url="file://$MODULE_DIR$/7.Regression/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/8.RegTrees/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/8.RegTrees" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/9.K-Means" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/9.K-Means/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/8.RegTrees/data" />
+      <excludeFolder url="file://$MODULE_DIR$/9.K-Means/data" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
