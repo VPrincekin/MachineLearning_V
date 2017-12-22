@@ -18,6 +18,9 @@
       <sourceFolder url="file://$MODULE_DIR$/8.RegTrees" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/9.K-Means" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/9.K-Means/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/10.Apriori" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/10.Apriori/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/10.Apriori/data" />
       <excludeFolder url="file://$MODULE_DIR$/5.SVM/digits" />
       <excludeFolder url="file://$MODULE_DIR$/6.AdaBoost/input_data" />
       <excludeFolder url="file://$MODULE_DIR$/7.Regression/data" />
