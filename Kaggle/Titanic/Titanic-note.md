@@ -69,8 +69,7 @@
 #### 教程：
 
 - **工作流程阶段**:
-      
-        
+```
     1.问题或问题的定义。
     2.获取 training（训练）和 testing（测试）数据.
     3.Wrangle（整理）, prepare（准备）, cleanse（清洗）数据
@@ -78,10 +77,9 @@
     5.Model（模型）, predict（预测）以及解决问题.
     6.Visualize（可视化）, report（报告）和提出解决问题的步骤以及最终解决方案.
     7.提供或提交结果.
-    
+``` 
 - **工作流程目标：数据科学解决方案工作流程有以下七个主要的目标.**
-
-    
+```    
     1.Classifying（分类）
         我们可能想对我们的样本进行分类或加以类别. 我们也可能想要了解不同类别与解决方案目标的含义或相关性.
     2.Correlating（相关）
@@ -99,10 +97,9 @@
         我们可以根据现有特征或一组特征来创建新特征, 以便新特征遵循 correlation（相关）, conversion（转换）, completeness（完整）的目标.
     7.Charting（绘图）
         如何根据数据的性质和解决方案的目标来选择正确的可视化图表工具以及绘图.
-        
+```        
 - **导入需要的包：**
-
-
+```
     # data analysis and wrangling
     import pandas as pd
     import numpy as np
@@ -122,55 +119,52 @@
     from sklearn.linear_model import Perceptron
     from sklearn.linear_model import SGDClassifier
     from sklearn.tree import DecisionTreeClassifier
-    
-- **获取数据**：
-    
-        
+```  
+- **获取数据**：      
     描述: Python 的 Pandas 包帮助我们处理我们的数据集. 
     我们首先将训练和测试数据集收集到 Pandas DataFrame 中.
     我们还将这些数据集组合在一起, 在两个数据集上运行某些操作.
-    
+    ```
     train_df = pd.read_csv('../input/train.csv')
     test_df = pd.read_csv('../input/test.csv')
     combine = [train_df, test_df]
-    
+    ```
 - **分析数据：**
 
-#####数据集中哪些特征可用？
-   
-   
+**数据集中哪些特征可用？**
+  ```
     print(train_df.columns.values)
-
-#####哪些特征是分类的？
-
+```
+**哪些特征是分类的？**
+```
     train_df.head()
-    
-#####哪些特征是数值的？
-    
+   ``` 
+**哪些特征是数值的？**
+```  
     train_df.head()
-    
-#####哪些特征是混合的数据类型？
-    
+   ``` 
+**哪些特征是混合的数据类型？**
+```    
     train_df.tail()
-
-#####哪些特征可能包含错误或错别字？
-    
+```
+**哪些特征可能包含错误或错别字？**
+```
     train_df.tail()   
-
-#####哪些特征包含 blank，null 或 空值？
-
+```
+**哪些特征包含 blank，null 或 空值？**
+```
     train_df.info()
     print('_'*40)
     test_df.info()
-    
-#####各个特征的数据类型是什么样的？
-
+``` 
+**各个特征的数据类型是什么样的？**
+```
     train_df.info()
     print('_'*40)
     test_df.info()
-    
-######样本中数值的特征值分布是什么样的？
-    
+``` 
+**样本中数值的特征值分布是什么样的？**
+``` 
     1.总样本是 891 或者在泰坦尼克号（2,224）上实际旅客的 40%.
     2.Survived（生存）是一个具有 0 或 1 值的分类特征.
     3.大约 38% 样本幸存了下来, 然而实际的幸存率是 32%.
@@ -178,17 +172,17 @@
     5.近 30% 的旅客有兄弟姐妹 和/或 配偶.
     6.少数旅客 Fares（票价）差异显著 (<1%), 最高达 $512.
     7.很少有年长的旅客 (<1%) 在年龄范围 65-80.
-    
-#####分类特征的分布是什么样的?  
-
+```    
+**分类特征的分布是什么样的?**  
+```
     1.Names（名称）特征在数据集中是唯一的 (count=unique=891)
     2.Sex（性别）变量有两个可能的值, 男性为 65% (top=male, freq=577/count=891).
     3.Cabin（房间号）值在样本中有重复. 或者几个旅客共享一个客舱.
     4.Embarked（出发港）有 3 个可能的值. 大多数乘客使用 S 港口(top=S)
     5.Ticket（船票号码）特征有很高 (22%) 的重复值 (unique=681).
-    
-#####基于数据分析的假设：
-    
+``` 
+**基于数据分析的假设：**
+```
     1.Correlating（相关）
         我们想知道每个特征与生存相关的程度. 我们希望在项目早期做到这一点, 并将这些快速相关性与项目后期的模型相关性相匹配.
     2.Completing（完整）
@@ -209,14 +203,13 @@
             Women (Sex=female) 更有可能幸存下来.
             Children (Age<?) 更有可能幸存下来.
             上层阶级的旅客 (Pclass=1) 更有可能幸存下来.
-
+```
 - **通过旋转特征进行分析**
-
-
+```
     为了确认我们的一些观察和假设, 我们可以快速分析我们的特征之间的相互关系.
     我们只能在这个阶段为没有任何空值的特征做到这一点.
     对于 Sex（性别），顺序的（Pclass）或离散的（SibSp，Parch）类型的特征, 这也是有意义的.
-    
+``` 
 - **通过可视化数据进行分析**
 
     观察 --->决策
@@ -249,8 +242,7 @@
         我们现在可以通过创建一个新的数字港特征来转换 EmbarkedFill 特征.（S--0.C---1.Q--2）
      
 - **模型预测和解决问题**
-    
-    
+```    
         Logistic Regression
         KNN or k-Nearest Neighbors
         Support Vector Machines
@@ -260,7 +252,7 @@
         Perceptron
         Artificial neural network
         RVM or Relevance Vector Machine
-
+```
 - **参考文献**
     泰坦尼克号之旅：https://www.kaggle.com/omarelgabry/titanic/a-journey-through-titanic   
     Pandas 入门指南: Kaggle 的泰坦尼克号竞赛： https://www.kaggle.com/c/titanic/details/getting-started-with-random-forests
