@@ -20,7 +20,10 @@
       <sourceFolder url="file://$MODULE_DIR$/9.K-Means/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/10.Apriori" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/10.Apriori/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/11.FP-growth" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/11.FP-growth/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/10.Apriori/data" />
+      <excludeFolder url="file://$MODULE_DIR$/11.FP-growth/data" />
       <excludeFolder url="file://$MODULE_DIR$/5.SVM/digits" />
       <excludeFolder url="file://$MODULE_DIR$/6.AdaBoost/input_data" />
       <excludeFolder url="file://$MODULE_DIR$/7.Regression/data" />
