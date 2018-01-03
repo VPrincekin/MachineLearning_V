@@ -24,9 +24,12 @@
       <sourceFolder url="file://$MODULE_DIR$/11.FP-growth/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/12.PCA" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/12.PCA/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/13.SVD/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/13.SVD" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/10.Apriori/data" />
       <excludeFolder url="file://$MODULE_DIR$/11.FP-growth/data" />
       <excludeFolder url="file://$MODULE_DIR$/12.PCA/data" />
+      <excludeFolder url="file://$MODULE_DIR$/13.SVD/data" />
       <excludeFolder url="file://$MODULE_DIR$/5.SVM/digits" />
       <excludeFolder url="file://$MODULE_DIR$/6.AdaBoost/input_data" />
       <excludeFolder url="file://$MODULE_DIR$/7.Regression/data" />
