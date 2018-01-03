@@ -11,6 +11,10 @@
             pop 移除列表中的一个元素（默认是最后一个），并且返回该元素的值。
             reverse 将列表中的元素方向存放
             intersection 判断一个列表中是否有某个元素
+            
+            对itemScores二维列表按照第二个元素排序，True代表降序。[:N]返回前N个
+                itemScores=[['a',1],['b',2],['c',3]]
+            sorted(itemScores, key=lambda jj: jj[1], reverse=True)[:N]
 
 2. 元组：tuple 元组与列表一样，也是一种序列。唯一的不同是元组不能修改。
 
