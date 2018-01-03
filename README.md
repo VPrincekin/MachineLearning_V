@@ -21,7 +21,7 @@
 ### 四. 其他工具
 12. [利用PCA来简化数据]()
 13. [利用SVD简化数据]()
-14. [大数据与MapReduce]()
+14. [大数据与MapReduce]() 
 
 - 版本：Python3
 - 作者：VPrincekin
