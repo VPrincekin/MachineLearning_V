@@ -38,6 +38,7 @@ if __name__ == '__main__':
     #对该矩阵进行特征值分析
     eigVals,eigVects = linalg.eig(mat(covMat))
     print(eigVals)
+    print(eigVects)
     """
     我们会看到一大堆值，但是其中很多值都是0，这就意味着这些特征都是其他特征的副本，也就是说，它们可以通过其他特征表示，而本身没有提供额外信息。
     """

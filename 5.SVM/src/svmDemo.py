@@ -67,6 +67,7 @@ def testDigits(kTup=('rbf', 10)):
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]): errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
+
     # 2. 导入测试数据
     dataArr, labelArr = loadImages('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/5.SVM/digits/testDigits')
     errorCount = 0

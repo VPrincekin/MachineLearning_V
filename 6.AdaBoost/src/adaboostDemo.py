@@ -31,4 +31,6 @@ if __name__ == '__main__':
     testArr, testLabelArr = adaboostDemo.loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/6.AdaBoost/input_data/horseColicTest2.txt')
     prediction10 = adaboost.adaClassify(testArr, classifierArray)
     errArr = mat(ones((67, 1)))
+    print(shape(mat(testLabelArr)),shape(prediction10))
     print(errArr[prediction10 != mat(testLabelArr).T].sum())
+

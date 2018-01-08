@@ -32,8 +32,8 @@ def pca(dataMat, topNfeat=9999999):
     :param dataMat:     数据集
     :param topNfeat:    要应用的特征个数
     :return:
-            lowDDataMat: 将维后的数据集
-            reconMat:    新的数据集空间
+            lowDDataMat: 新的数据集空间
+            reconMat:    降维后重构的数据集
     """
     meanVals = mean(dataMat, axis=0)   #计算每一列的均值
     meanRemoved = dataMat - meanVals    #每个向量同时都减去均值
@@ -56,7 +56,7 @@ def pca(dataMat, topNfeat=9999999):
 if __name__ == '__main__':
     #测试PCA函数
     dataMat = loadDataSet(r'C:\Users\v_wangdehong\PycharmProjects\MachineLearning_V\12.PCA\data\testSet.txt')
-    print(shape(dataMat))
+    print(dataMat)
     lowDMat,reconMat = pca(dataMat,1)
 
     print(shape(lowDMat)) #将维后的数据集
@@ -66,9 +66,9 @@ if __name__ == '__main__':
     """
     我们可以将将维后的数据和原始数据一起绘制出来
     """
-    import matplotlib.pyplot as plt
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(dataMat[:,0].flatten().tolist(),dataMat[:,1].flatten().tolist(),marker='^',s=90)
-    ax.scatter(reconMat[:,0].flatten().tolist(),reconMat[:,1].flatten().tolist(),marker='o',s=50,c='red')
-    plt.show()
+    # import matplotlib.pyplot as plt
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111)
+    # ax.scatter(dataMat[:,0].flatten().tolist(),dataMat[:,1].flatten().tolist(),marker='^',s=90)
+    # ax.scatter(reconMat[:,0].flatten().tolist(),reconMat[:,1].flatten().tolist(),marker='o',s=50,c='red')
+    # plt.show()
