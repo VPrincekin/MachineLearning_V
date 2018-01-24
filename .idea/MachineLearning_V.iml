@@ -26,6 +26,8 @@
       <sourceFolder url="file://$MODULE_DIR$/12.PCA/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/13.SVD/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/13.SVD" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Common" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Common/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/10.Apriori/data" />
       <excludeFolder url="file://$MODULE_DIR$/11.FP-growth/data" />
       <excludeFolder url="file://$MODULE_DIR$/12.PCA/data" />
