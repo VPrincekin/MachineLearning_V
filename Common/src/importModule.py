@@ -33,3 +33,7 @@ import seaborn as sns
 mpl.style.use('ggplot')
 sns.set_style('white')
 pylab.rcParams['figure.figsize'] = 12,8
+
+"""打印log"""
+import logging
+logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')

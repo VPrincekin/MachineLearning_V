@@ -23,4 +23,3 @@ if __name__ == '__main__':
                         format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
     logging.info('{} and {}'.format(c,b))
 
-
