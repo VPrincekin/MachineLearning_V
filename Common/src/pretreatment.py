@@ -17,17 +17,17 @@ class DataAna():
 
     def dataInfo(self):
         logging.info('------训练数据信息')
-        self.trainDf.info()
-        self.trainDf.sample(10)
+        print(self.trainDf.info())
+        print(self.trainDf.sample(10))
+
+    def dataDescribe(self):
+        logging.info('------查看训练数据总体情况')
+        print(self.trainDf.describe(include='all'))
 
     def dataNull(self):
         logging.info('------查看训练/测试数据每列有多少个空字段')
         print('Train columns with null valules :\n', self.trainDf.isnull().sum())
         print('Test/Validation columns with null values:\n', self.testDf.isnull().sum())
-
-    def dataDescribe(self):
-        logging.info('------查看训练数据总体情况')
-        self.trainDf.describe(include='all')
 
     def dataReplace(self,columns,method):
         for dataset in self.data_clean:
@@ -62,7 +62,7 @@ class DataAna():
         for x in columnsArr:
             if self.trainDf[x].dtype != 'float64':
               logging.info('{} Correlation by : {}'.format(Target,x))
-              print(self.trainDf[x,Target].groupby(x,as_index=False).mean())
+              print(self.trainDf[[x,Target]].groupby(x,as_index=False).mean())
               print('-'*25)
 
         #print(pd.crosstab(data1['Title'], data1[Target[0]]))

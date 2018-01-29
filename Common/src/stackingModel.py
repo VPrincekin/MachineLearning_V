@@ -31,11 +31,13 @@ class StackModel():
                 result_Y：根据测试数据预测出来的结果
         """
         logging.info('------Stacking之后的模型效果')
-        # sclf = StackingCVClassifier(classifiers=self.clfArr,meta_classifier=self.lr,cv=5)
-        sclf = StackingClassifier(classifiers=self.clfArr,meta_classifier=self.lr,verbose=1)
+        sclf = StackingCVClassifier(classifiers=self.clfArr,meta_classifier=self.lr,cv=4)
+        # sclf = StackingClassifier(classifiers=self.clfArr,meta_classifier=self.lr,verbose=1)
+        X=np.array(X)
+        y=np.array(y).flatten()
         sclf.fit(X,y)
         result_Y = sclf.predict(test_X)
-        scores = model_selection.cross_val_score(sclf,X,y,cv=3,scoring='accuracy')
+        scores = model_selection.cross_val_score(sclf,X,y,cv=5,scoring='accuracy')
         print('The  Accuracy , mean: {:.5f} , std:+/- {:.5f}'.format(scores.mean(), scores.std()))
         return result_Y
 
@@ -48,4 +50,4 @@ if __name__ == '__main__':
     clf3 = naive_bayes.GaussianNB()
     clfArr = list([clf1, clf2, clf3])
     sta = StackModel(clfArr)
-    sta.stack(x, y)
+    sta.stack(x,y,x)

@@ -7,6 +7,7 @@ from importModule import *
     featureArr： type：List       训练集所有特征的列名组成的集合
     Target：     type：List       目标值的列名      
     alg:         type: MLA        指定的算法
+    paramdict:   type: Dict       指定算法的参数。paramdict={'criterion':['gini','entropy'],'max_depth': [2,4,6,8,10,None],'random_state':[0]}
 """
 class MLA():
     def __init__(self):
@@ -95,7 +96,7 @@ class MLA():
         alg_rfe.fit(trainDF[featureArr],trainDF[Target])
 
         X_rfe = trainDF[trainDF[featureArr].columns.values(alg_rfe.get_support())]
-        rfe_results = model_selection.cross_validate(alg,trainDF[featureArr],trainDF[Target],cv=self.cvSplit)
+        rfe_results = model_selection.cross_validate(alg_rfe,trainDF[X_rfe],trainDF[Target],cv=self.cvSplit)
         logging.info('------最好的特征以及该特征下模型效果')
         print('AFTER DT RFE Training Shape New: ', trainDF[X_rfe].shape)
         print('AFTER DT RFE Training Columns New: ', X_rfe)
@@ -109,7 +110,7 @@ class MLA():
         tune_model.fit(trainDF[featureArr],trainDF[Target])
 
         logging.info('------最好好的模型参数以及该参数下模型效果')
-        tune_results = model_selection.cross_validate(alg, trainDF[featureArr], trainDF[Target], cv=self.cvSplit)
+        tune_results = model_selection.cross_validate(tune_model, trainDF[featureArr], trainDF[Target], cv=self.cvSplit)
         print('AFTER DT Parameters: ', tune_model.best_params_)
         print("AFTER DT Training w/bin set score mean: {:.2f}".format(tune_results['train_score'].mean() * 100))
         print("AFTER DT Test w/bin set score mean: {:.2f}".format(tune_results['test_score'].mean() * 100))
@@ -119,7 +120,7 @@ class MLA():
         logging.info('------热力图，观察不同模型之间的相关性')
         MLA_predict = self.predict(trainDF,featureArr,Target)
         import graphics
-        Ga = graphics.GraphAna()
+        Ga = graphics.GraphAna(trainDF)
         Ga.correlation_heatmap(MLA_predict)
 
 
