@@ -7,7 +7,6 @@ def loadDataSet(fileName):
     fr = open(fileName)
     lines = list(fr.readlines())
     linesLen = len(lines)
-    print(linesLen)
     numFeat = len(lines[0].strip().split('\t'))
     dataMat = []
     labelMat = []
