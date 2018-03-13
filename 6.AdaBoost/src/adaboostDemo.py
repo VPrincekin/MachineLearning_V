@@ -31,6 +31,15 @@ if __name__ == '__main__':
     testArr, testLabelArr = adaboostDemo.loadDataSet('C:/Users/v_wangdehong/PycharmProjects/MachineLearning_V/6.AdaBoost/input_data/horseColicTest2.txt')
     prediction10 = adaboost.adaClassify(testArr, classifierArray)
     errArr = mat(ones((67, 1)))
-    print(shape(mat(testLabelArr)),shape(prediction10))
-    print(errArr[prediction10 != mat(testLabelArr).T].sum())
+    print(errArr[prediction10 == mat(testLabelArr).T].sum())
+    from sklearn import ensemble
+    abc = ensemble.AdaBoostClassifier(learning_rate=1)
+    abc.fit(datMat,labelMat)
+    abc_pre = abc.predict(testArr)
+    b = testLabelArr
+    a = abc_pre.tolist()
+    from sklearn import metrics
+    print(metrics.precision_score(b,a),metrics.recall_score(b,a),metrics.f1_score(b,a))
+
+
 

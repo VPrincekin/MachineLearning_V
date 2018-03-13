@@ -17,9 +17,14 @@ if __name__ == '__main__':
     w.run()
     c='a'
     b='b'
+
     import logging
 
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
     logging.info('{} and {}'.format(c,b))
+
+    import numpy as np
+    a = np.array([[1,2,3],[1,2,3],[1,2,5]])
+    print(np.array(list(set(tuple(t) for t in a))))
 

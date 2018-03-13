@@ -111,7 +111,7 @@ def adaBoostTrainDS(dataArr,classLabels,numIt=40):
     aggClassEst = mat(zeros((m,1)))
 
     for i in range(numIt):
-        #通过buidStump函数，返回的是具有最下错误率的单层决策树，同时返回的还有最小的错误率以及估计的类别向量。
+        #通过buidStump函数，返回的是具有最小错误率的单层决策树，同时返回的还有最小的错误率以及估计的类别向量。
         bestStump,error,classEst = buildStump(dataArr,classLabels,D)
         classLabels = mat(classLabels)
         #计算每一个分类器实例的权重
