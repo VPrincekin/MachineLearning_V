@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #coding = utf-8
 import pandas as pd
+import numpy as np
 from sklearn.metrics import roc_auc_score
 if __name__ == '__main__':
     #经过特征工程处理的数据集
@@ -13,101 +14,80 @@ if __name__ == '__main__':
     TestData = X_train.loc[701:,:]
     TestLabel = Y_train.loc[701:,:]
 
-    # """KNN"""
-    # print("===================KNN======================")
-    # from sklearn.neighbors import KNeighborsClassifier
-    # knn = KNeighborsClassifier(n_neighbors=10)
-    # knn.fit(TrainData,TrainLabel)
-    # acc_knn1 = round(knn.score(TrainData, TrainLabel) * 100, 2)
-    # print(acc_knn1)
-    # acc_knn2 = round(knn.score(TestData, TestLabel) * 100, 2)
-    # print(acc_knn2)
-    # Y_pred = knn.predict_proba(TestData)[:,1]
-    # acc_knn3 = roc_auc_score(TestLabel,Y_pred)
-    # print(acc_knn3)
+    """交叉验证"""
+    from sklearn import model_selection
+    cvSplit = model_selection.KFold(10)
 
-    # """决策树"""
-    # print("===================决策树======================")
-    # from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor
+
+    # """随机森林"""
+    # from  sklearn.ensemble import RandomForestClassifier
+    # rf = RandomForestClassifier(n_estimators=150,min_samples_leaf=3,max_depth=6,oob_score=True)
+    # #模型训练
+    # cv_results = model_selection.cross_validate(rf,X_train,Y_train,cv=cvSplit)
+    # print(cv_results["train_score"].mean(),cv_results["test_score"].mean())
+    # #保存模型
+    # from sklearn.externals import  joblib
+    # joblib.dump(rf,"rf.m")
+    # #恢复模型
+    # rf_load = joblib.load("rf.m")
+    # #预测结果
+    # # rf_pre = rf.predict(X_test)
+    # # rf_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived": rf_pre})
+    # # rf_sub.to_csv()
     #
-    # dect = DecisionTreeClassifier()
-    # dect.fit(TrainData,TrainLabel)
-    # acc_dect1 = round(dect.score(TrainData, TrainLabel) * 100, 2)
-    # print(acc_dect1)
-    # acc_dect2 = round(dect.score(TestData, TestLabel) * 100, 2)
-    # print(acc_dect2)
     #
     # """Logistic回归"""
-    # print("====================Logistic回归==================")
     # from sklearn.linear_model import LogisticRegression
-    # log = LogisticRegression()
-    # log.fit(TrainData,TrainLabel)
-    # acc_log1 = round(log.score(TrainData,TrainLabel)*100,2)
-    # print(acc_log1)
-    # acc_log2 = round(log.score(TestData,TestLabel)*100,2)
-    # print(acc_log2)
+    # lr = LogisticRegression()
+    # param = {"C":[0.1,0.5,0.8,1,10],"max_iter":[100,200,300]}
+    # #自动选择最优参数
+    # clf = model_selection.GridSearchCV(lr,param,scoring="roc_auc",cv=cvSplit)
+    # clf.fit(X_train,Y_train)
+    # #打印最佳得分和最佳参数
+    # print(clf.best_score_,clf.best_params_)
+    # #预测结果
+    # # clf.predict(X_test)
+    # # clf_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived": rf_pre})
+    # # clf_sub.to_csv()
 
-    # """SVM"""
-    # print("====================SVM===============================")
-    # from sklearn.svm import SVC
-    # svc = SVC(C=1.5,kernel='rbf')
-    # svc.fit(TrainData,TrainLabel)
-    # acc_svc1 = round(svc.score(TrainData,TrainLabel)*100,2)
-    # print(acc_svc1)
-    # acc_svc2 = round(svc.score(TestData,TestLabel)*100,2)
-    # print(acc_svc2)
+    # """模型融合-Voting"""
+    # from sklearn.ensemble import VotingClassifier
+    #
+    # from sklearn.linear_model import LogisticRegression
+    # lr = LogisticRegression(C=0.5,max_iter=100)
+    #
+    # import xgboost as xgb
+    # xgb_model = xgb.XGBClassifier(max_depth=6,n_estimators=100)
+    #
+    # from sklearn.ensemble import RandomForestClassifier
+    # rf = RandomForestClassifier(n_estimators=200,min_samples_leaf=2,max_depth=6,oob_score=True)
+    #
+    # from sklearn.ensemble import GradientBoostingClassifier
+    # gbdt = GradientBoostingClassifier(learning_rate=0.1,min_samples_leaf=2,max_depth=6,n_estimators=100)
+    #
+    # vot = VotingClassifier(estimators=[('lr',lr),('rf',rf),('gbdt',gbdt),('xgb',xgb_model)],voting='hard')
+    # vot.fit(X_train,Y_train)
+    # vot.predict(X_test)
+    # print(round(vot.score(X_train,Y_train)*100,2))
+    #
 
-    # """Adaboost"""
-    # print("====================Adaboost===============================")
-    # from sklearn.ensemble import AdaBoostClassifier
-    # ada = AdaBoostClassifier(n_estimators=100,learning_rate=0.5)
-    # ada.fit(TrainData,TrainLabel)
-    # acc_ada1 = round(ada.score(TrainData, TrainLabel) * 100, 2)
-    # print(acc_ada1)
-    # acc_ada2 = round(ada.score(TestData, TestLabel) * 100, 2)
-    # print(acc_ada2)
-
-    """XGBoost"""
-    print("====================XGBoost===============================")
-    from xgboost import XGBClassifier
-    xgb = XGBClassifier(max_depth=5,learning_rate=0.4, gamma=0.03)
-    # xgb.fit(TrainData, TrainLabel)
-    # acc_xgb1 = round(xgb.score(TrainData, TrainLabel) * 100, 2)
-    # print(acc_xgb1)
-    # acc_xgb2 = round(xgb.score(TestData, TestLabel) * 100, 2)
-    # print(acc_xgb2)
-    xgb.fit(X_train,Y_train)
-    print(round(xgb.score(X_train,Y_train),2))
-    XGB_pred = xgb.predict(X_test)
-    XGB_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived": XGB_pred})
-    XGB_sub.to_csv('../data/XGB_sub.csv',index=False)
-
-    """RandomForest"""
-    print("====================RandomForest===============================")
+    """模型融合-Stacking"""
+    from sklearn.linear_model import LogisticRegression
+    import xgboost as xgb
     from sklearn.ensemble import RandomForestClassifier
-    rfc = RandomForestClassifier(n_estimators=15,max_depth=15)
-    # rfc.fit(TrainData, TrainLabel)
-    # acc_rfc1 = round(rfc.score(TrainData, TrainLabel) * 100, 2)
-    # print(acc_rfc1)
-    # acc_rfc2 = round(rfc.score(TestData, TestLabel) * 100, 2)
-    # print(acc_rfc2)
-    rfc.fit(X_train,Y_train)
-    print(round(rfc.score(X_train, Y_train), 2))
-    RFC_pred = rfc.predict(X_test)
-    RFC_sub = pd.DataFrame({"PassengerId": test_df["PassengerId"], "Survived": RFC_pred})
-    RFC_sub.to_csv('../data/RFC_sub.csv', index=False)
-
-    """GBDT"""
-    print("====================GBDT===============================")
     from sklearn.ensemble import GradientBoostingClassifier
-    gbc = GradientBoostingClassifier(learning_rate=0.5,max_depth=5)
-    # gbc.fit(TrainData, TrainLabel)
-    # acc_gbc1 = round(gbc.score(TrainData, TrainLabel) * 100, 2)
-    # print(acc_gbc1)
-    # acc_gbc2 = round(gbc.score(TestData, TestLabel) * 100, 2)
-    # print(acc_gbc2
-    gbc.fit(X_train,Y_train)
-    print(round(gbc.score(X_train, Y_train), 2))
-    GBDT_pred = gbc.predict(X_test)
-    GBDT_sub = pd.DataFrame({"PassengerId": test_df["PassengerId"], "Survived": GBDT_pred})
-    GBDT_sub.to_csv('../data/GBDT_sub.csv', index=False)
+    clfs = [LogisticRegression(C=0.5, max_iter=100),
+            xgb.XGBClassifier(max_depth=6, n_estimators=100, num_round=5),
+            RandomForestClassifier(n_estimators=100, max_depth=6, oob_score=True),
+            GradientBoostingClassifier(learning_rate=0.3, max_depth=6, n_estimators=100)]
+    clf2 = LogisticRegression(C=0.5,max_iter=100)
+    from mlxtend.classifier import StackingClassifier,StackingCVClassifier
+    sclf = StackingClassifier(classifiers=clfs,meta_classifier=clf2)
+    sclf.fit(X_train,Y_train)
+    print(sclf.score(X_train,Y_train))
+    sclf2 = StackingCVClassifier(classifiers=clfs,meta_classifier=clf2,cv=3)
+    x = np.array(X_train)
+    y = np.array(Y_train).flatten()
+    sclf2.fit(x,y)
+    print(sclf2.score(x,y))
+
