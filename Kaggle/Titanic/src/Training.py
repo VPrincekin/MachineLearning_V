@@ -83,8 +83,7 @@ if __name__ == '__main__':
             RandomForestClassifier(n_estimators=100, max_depth=6, oob_score=True),
             GradientBoostingClassifier(learning_rate=0.3, max_depth=6, n_estimators=100)]
     clf2 = LogisticRegression(C=0.5,max_iter=100)
-
-
+    #============================================================================#
     from mlxtend.classifier import StackingClassifier,StackingCVClassifier
     sclf = StackingClassifier(classifiers=clfs,meta_classifier=clf2)
     sclf.fit(X_train,Y_train)
@@ -92,7 +91,7 @@ if __name__ == '__main__':
     sclf_pre = sclf.predict(X_test)
     sclf_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived":sclf_pre})
     sclf_sub.to_csv("../data/sclf_sub.csv",index=False)
-
+    #===============================================================================#
     sclf2 = StackingCVClassifier(classifiers=clfs,meta_classifier=clf2,cv=5)
     x = np.array(X_train)
     y = np.array(Y_train).flatten()
