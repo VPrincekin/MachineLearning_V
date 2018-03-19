@@ -125,7 +125,7 @@ x = plt.xticks(rotation=90)
 plt.show()
 ```
 
-### 三、数据的预处理
+### 三、数据的预处理(特征工程)
 
 对数据的预处理主要分为以下几个方面：
 1. 缺失值的填补。
@@ -148,6 +148,7 @@ na_rate = na_count/len(train)
 na_data = pd.concat([na_count,na_rate],axis = 1,keys = ["count",'ratio'])
 ```
 - 处理方案一(删除多余或者不相关特征)
+
 接下来我们就可以根据统计结果来对不同的特征缺失值做不同的处理。一般的，如果某一特征的数据缺失量达到15%以上，我们应该删除这些特征(当然具体还要看特征对目标变量的影响)。
 对于缺失量很小的特征，我们可以直接删除缺失值的那些样本即可。还有一些特征可能代表的是某一种相同的信息，或者和已存在的某些特征具有较强的相关性，这样的话我们可以删除此类特征，保留一个有效特征即可。
 
@@ -274,7 +275,7 @@ train.plot.scatter(x=var1,y=output,ylim=(MIN_VALUE,MAX_VALUE),ax=axis[1])
 train.plot.scatter(x=var2,y=output,ylim=(MIN_VALUE,MAX_VALUE),ax=axis[2])
 
 #删除离散样点
-train.drop(train[(train['Feature']>4000)&(train.SalePrice<300000)].index,inplace=True)
+train.drop(train[(train['Feature']>4000)&(train['Target']<300000)].index,inplace=True)
 ```
 #### 5.删除无关特征
 
@@ -284,3 +285,89 @@ train.drop(train[(train['Feature']>4000)&(train.SalePrice<300000)].index,inplace
 
 - 在我们做项目的过程中还会发现，现有的特征数目太少，或者根据现有的特征训练出来的模型效果不理想。那么这个时候就需要我们结合实际项目，想办法构建出新的特征，进而提高我们模型的效果。
 
+### 四、模型训练
+
+我们要根据项目的实际情况选择合适的模型，然后对模型超差调优，交叉验证，最后可以尝试融合多个模型。
+
+- 以logistic为例
+```python
+#交叉验证
+from sklearn import model_selection
+cvSplit = model_selection.KFold(10)
+
+from sklearn.linear_model import LogisticRegression
+lr = LogisticRegression()
+param = {"C":[0.1,0.5,0.8,1,10],"max_iter":[100,200,300]}
+#自动选择最优参数
+clf = model_selection.GridSearchCV(lr,param,scoring="roc_auc",cv=cvSplit)
+clf.fit(X_train,Y_train)
+#打印最佳得分和最佳参数 
+print(clf.best_score_,clf.best_params_)
+#预测结果
+clf_pre = clf.predict(X_test)
+clf_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived": clf_pre})
+clf_sub.to_csv("../data/clf_sub.csv", index=False)
+
+#保存模型
+from sklearn.externals import  joblib
+joblib.dump(clf,"clf.m")
+#恢复模型
+rf_load = joblib.load("clf.m")
+```
+
+- 模型融合
+
+#### Voting
+```python
+    from sklearn.ensemble import VotingClassifier
+
+    from sklearn.linear_model import LogisticRegression
+    lr = LogisticRegression(C=0.5,max_iter=100)
+
+    import xgboost as xgb
+    xgb_model = xgb.XGBClassifier(max_depth=6,n_estimators=100)
+
+    from sklearn.ensemble import RandomForestClassifier
+    rf = RandomForestClassifier(n_estimators=200,min_samples_leaf=2,max_depth=6,oob_score=True)
+
+    from sklearn.ensemble import GradientBoostingClassifier
+    gbdt = GradientBoostingClassifier(learning_rate=0.1,min_samples_leaf=2,max_depth=6,n_estimators=100)
+
+    vot = VotingClassifier(estimators=[('lr',lr),('rf',rf),('gbdt',gbdt),('xgb',xgb_model)],voting='hard')
+    vot.fit(X_train,Y_train)
+    print(round(vot.score(X_train,Y_train)*100,2))
+    vot_pre = vot.predict(X_test)
+    vot_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived":vot_pre})
+    vot_sub.to_csv("../data/vot_sub.csv",index=False)
+
+```
+
+#### Stacking
+
+```python
+    from sklearn.linear_model import LogisticRegression
+    import xgboost as xgb
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.ensemble import GradientBoostingClassifier
+    clfs = [LogisticRegression(C=0.5, max_iter=100),
+            xgb.XGBClassifier(max_depth=6, n_estimators=100, num_round=5),
+            RandomForestClassifier(n_estimators=100, max_depth=6, oob_score=True),
+            GradientBoostingClassifier(learning_rate=0.3, max_depth=6, n_estimators=100)]
+    clf2 = LogisticRegression(C=0.5,max_iter=100)
+    #==========================StackingClassifier====================================#
+    from mlxtend.classifier import StackingClassifier,StackingCVClassifier
+    sclf = StackingClassifier(classifiers=clfs,meta_classifier=clf2)
+    sclf.fit(X_train,Y_train)
+    print(sclf.score(X_train,Y_train))
+    sclf_pre = sclf.predict(X_test)
+    sclf_sub = pd.DataFrame({"PassengerId":test_df["PassengerId"],"Survived":sclf_pre})
+    sclf_sub.to_csv("../data/sclf_sub.csv",index=False)
+    #========================StackingCVClassifier===================================#
+    sclf2 = StackingCVClassifier(classifiers=clfs,meta_classifier=clf2,cv=5)
+    x = np.array(X_train)
+    y = np.array(Y_train).flatten()
+    sclf2.fit(x,y)
+    print(sclf2.score(x,y))
+    sclf2_pre = sclf2.predict(np.array(X_test))
+    sclf2_sub = pd.DataFrame({"PassengerId": test_df["PassengerId"], "Survived": sclf2_pre})
+```
