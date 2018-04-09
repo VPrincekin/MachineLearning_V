@@ -1,0 +1,37 @@
+
+大数据方向：
+
+必备技能：Linux Mysql JAVA 算法与数据结构
+	1.巩固之前学过的大数据知识技能
+		重点技能：Hadoop +Hive + Java + Spark +Scala/Python
+		次要技能：HBase + Zookeeper + Kafka 
+	2.熟悉公司的系统构架(代码能力)
+
+后置技能：待定
+
+机器学习方向：
+
+必备技能：Python Linux 数学知识
+	1.总结学过的算法。（原理，调用，参数，优缺点） 
+		经典算法：KNN + 决策树 + 朴素贝叶斯 + LogisticRegression + SVM + Regression + RegressionTrees + K-Means 
+				  Apriori + FP-growth 发现频繁项集	  
+		集成算法：Adaboost + 随机森林 + GBDT + XGBoost + LightGBM (注意：Bagging 和 Boosting的区别) 
+		
+		重点参考Sklearn（分类，回归，聚类，降维，模型选择）
+		
+	2.熟悉特征工程，参加比赛。（数据预处理,数据分析/可视化,异常值处理）
+		重要技能：numpy + pandas + matplotlib +  seaborn 
+	3.了解深度学习框架。Pytorch Transflow
+		基于神经网络的深入研究：
+			卷积神经网络
+			循环神经网络
+			对抗神经网络
+		
+后置技能：1. 模型超参调整（RandomizedSearchCV 随机搜索;  GridSearchCV 网络搜索）
+		  2. 模型融合 Stacking (大致原理与代码实现：http://blog.csdn.net/willduan1/article/details/73618677)
+
+		
+
+
+
+
