@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 #conding = utf-8
 
-from importModule import *
+from com.importModule import *
 
 data_raw = pd.read_csv('../data/train.csv')
 data_val = pd.read_csv('../data/test.csv')
 data_cleaner = [data_raw,data_val]
-import pretreatment
-pt = pretreatment.DataAna(data_raw,data_val)
+pt = pretreatment.DataAna(data_raw, data_val)
 # pt.dataInfo() #训练数据信息
 # pt.dataDescribe() #查看训练数据总体情况
 # pt.dataNull()
@@ -42,7 +41,6 @@ Target = ['Survived']
 pt.dataNull()
 # pt.dataGroupAna(['Pclass'],'Survived')
 
-import graphics
 Gra = graphics.GraphAna(pt.trainDf)
 # Gra.thermogram()
 # Gra.histogram('Fare','Survived')
@@ -51,14 +49,13 @@ Gra = graphics.GraphAna(pt.trainDf)
 # Gra.distributed('Age','Survived')
 # Gra.allFeature('Survived')
 
-import algorithm
+from com import algorithm, graphics, pretreatment, stackingModel
+
 # MLA = algorithm.MLA()
 # MLA.predict(pt.trainDf,columnsArr,Target)
 # MLA.thermogramModel(pt.trainDf,columnsArr,Target)
 
 
-
-import stackingModel
 clf2 = svm.SVC(probability=True)
 clf3 = ensemble.AdaBoostClassifier()
 clf4 = ensemble.GradientBoostingClassifier()
